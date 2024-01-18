@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "engraved:item/music_label_top",
+    "layer1": "engraved:item/music_label_bottom"
+  }
+}

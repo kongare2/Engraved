@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "engraved:block/etching_table",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "engraved:block/etching_table"
+    },
+    "facing=south": {
+      "model": "engraved:block/etching_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "engraved:block/etching_table",
+      "y": 270
+    }
+  }
+}

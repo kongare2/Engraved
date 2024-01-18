@@ -1,0 +1,7 @@
+{
+	"parent": "engraved:block/radio_225",
+	"textures": {
+		"texture": "engraved:block/portal_radio",
+		"particle": "engraved:block/portal_radio"
+	}
+}

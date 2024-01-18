@@ -1,0 +1,23 @@
+{
+	"required": true,
+	"package": "com.kongare.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"RecordItemMixin",
+		"SoundEventAccessor",
+		"StructureTemplatePoolAccessor",
+		"JukeboxBlockEntityMixin",
+		"JukeboxBlockMixin"
+	],
+	"client": [
+		"ChannelMixin",
+		"GuiAccessor",
+		"LevelRendererAccessor",
+		"LevelRendererMixin",
+		"SoundEngineMixin",
+		"StopListeningSoundMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

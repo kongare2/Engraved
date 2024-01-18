@@ -1,0 +1,47 @@
+{
+  "parent": "engraved:item/flat_etched_music_disc",
+  "overrides": [
+    {
+      "predicate": {
+        "engraved:pattern": 0
+      },
+      "model": "engraved:item/flat_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.1
+      },
+      "model": "engraved:item/cross_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.2
+      },
+      "model": "engraved:item/eye_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.3
+      },
+      "model": "engraved:item/parallel_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.4
+      },
+      "model": "engraved:item/star_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.5
+      },
+      "model": "engraved:item/gold_etched_music_disc"
+    },
+    {
+      "predicate": {
+        "engraved:pattern": 0.6
+      },
+      "model": "engraved:item/flat_etched_music_disc"
+    }
+  ]
+}
