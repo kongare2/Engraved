@@ -201,6 +201,12 @@ public class SoundTracker {
         })));
     }
 
+    public static void playBoombox(int entityId, ItemStack record) {
+        setEntitySound(entityId, null);
+        if (!record.isEmpty())
+            playEntityRecord(record, entityId, 0, 8, true);
+    }
+
     public static void playRadio(@Nullable String url, BlockState state, ClientLevel level, BlockPos pos) {
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
         Map<BlockPos, SoundInstance> playingRecords = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).getPlayingRecords();
@@ -224,6 +230,42 @@ public class SoundTracker {
         if (TrackData.isValidURL(url)) {
             playRecord(pos, StopListeningSound.create(getEtchedRecord(url, RADIO, level, pos, 8, AudioSource.AudioFileType.BOTH), () -> Minecraft.getInstance().tell(() -> playRadio(url, level.getBlockState(pos), level, pos)))); // Get the new block state
         }
+    }
+
+    public static void playEntityRecord(ItemStack record, int entityId, int track, int attenuationDistance, boolean loop) {
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null)
+            return;
+
+        Entity entity = level.getEntity(entityId);
+        if (entity == null)
+            return;
+
+        Optional<? extends SoundInstance> sound = ((PlayableRecord) record.getItem()).createEntitySound(record, entity, track, attenuationDistance);
+        if (sound.isEmpty()) {
+            if (loop && track != 0)
+                playEntityRecord(record, entityId, 0, attenuationDistance, true);
+            return;
+        }
+
+        SoundInstance entitySound = ENTITY_PLAYING_SOUNDS.remove(entity.getId());
+        if (entitySound != null) {
+            if (entitySound instanceof StopListeningSound)
+                ((StopListeningSound) entitySound).stopListening();
+            Minecraft.getInstance().getSoundManager().stop(entitySound);
+        }
+
+        entitySound = StopListeningSound.create(sound.get(), () -> Minecraft.getInstance().tell(() -> {
+            ENTITY_PLAYING_SOUNDS.remove(entityId);
+            playEntityRecord(record, entityId, track + 1, attenuationDistance, loop);
+        }));
+
+        ENTITY_PLAYING_SOUNDS.put(entityId, entitySound);
+        Minecraft.getInstance().getSoundManager().play(entitySound);
+    }
+
+    public static void playEntityRecord(ItemStack record, int entityId, int track, boolean loop) {
+        SoundTracker.playEntityRecord(record, entityId, track, 16, loop);
     }
 
     private static void playNextRecord(ClientLevel level, BlockPos pos) {

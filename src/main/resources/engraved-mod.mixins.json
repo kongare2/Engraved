@@ -6,7 +6,7 @@
 		"RecordItemMixin",
 		"SoundEventAccessor",
 		"StructureTemplatePoolAccessor",
-		"JukeboxBlockEntityMixin",
+		"PoiTypesInvoker",
 		"JukeboxBlockMixin"
 	],
 	"client": [
@@ -15,7 +15,11 @@
 		"LevelRendererAccessor",
 		"LevelRendererMixin",
 		"SoundEngineMixin",
-		"StopListeningSoundMixin"
+		"StopListeningSoundMixin",
+		"ClientLivingEntityMixin",
+		"HumanoidModelMixin",
+		"ItemStackMixin",
+		"ItemEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

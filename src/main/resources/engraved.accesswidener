@@ -1,3 +1,4 @@
 accessWidener v2 named
 transitive-accessible field net/minecraft/world/entity/Entity level Lnet/minecraft/world/level/Level;
 transitive-accessible method net/minecraft/client/gui/GuiGraphics blit (Lnet/minecraft/resources/ResourceLocation;IIIIIIIFFII)V
+extendable method net/minecraft/world/entity/vehicle/AbstractMinecart getDropItem ()Lnet/minecraft/world/item/Item;

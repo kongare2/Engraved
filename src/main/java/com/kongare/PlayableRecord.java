@@ -2,10 +2,18 @@ package com.kongare;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -61,6 +69,36 @@ public interface PlayableRecord {
      * @param record  The record to play
      * @param restart Whether to restart the track from the beginning or start a new playback
      */
+
+    static void playEntityRecord(Entity entity, ItemStack record, boolean restart) {
+        EntityMusicAction act = restart ? EntityMusicAction.RESTART : EntityMusicAction.START;
+
+        FriendlyByteBuf pkt = PacketByteBufs.create().writeEnum(act).writeItem(record).writeVarInt(entity.getId());
+
+        for (ServerPlayer player : PlayerLookup.tracking(entity)) {
+            ServerPlayNetworking.send(player, EngravedMod.PLAY_ENTITY_MUSIC_PACKET, pkt);
+        }
+        //ClientPlayNetworking.send(EngravedMod.PLAY_ENTITY_MUSIC_PACKET, pkt);
+
+        //EtchedMessages.PLAY.sendToTracking(entity, new ClientboundPlayEntityMusicPacket(record, entity, restart));
+    }
+
+    /**
+     * Sends a packet to the client notifying them to stop playing an entity record.
+     *
+     * @param entity The entity to stop playing records
+     */
+    static void stopEntityRecord(Entity entity) {
+        FriendlyByteBuf pkt = PacketByteBufs.create().writeEnum(EntityMusicAction.STOP).writeVarInt(entity.getId());
+
+        for (ServerPlayer player : PlayerLookup.tracking(entity)) {
+            ServerPlayNetworking.send(player, EngravedMod.PLAY_ENTITY_MUSIC_PACKET, pkt);
+        }
+
+        //ClientPlayNetworking.send(EngravedMod.PLAY_ENTITY_MUSIC_PACKET, pkt);
+        //EtchedMessages.PLAY.sendToTracking(entity, new ClientboundPlayEntityMusicPacket(entity));
+    }
+
 
     /**
      * Retrieves the music for the specified stack.
