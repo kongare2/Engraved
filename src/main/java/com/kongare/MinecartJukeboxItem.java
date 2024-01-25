@@ -1,8 +1,8 @@
 package com.kongare;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.tags.BlockTags;
@@ -26,12 +26,12 @@ public class MinecartJukeboxItem extends Item {
 
         @Override
         public ItemStack execute(BlockSource source, ItemStack stack) {
-            Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
-            Level level = source.getLevel();
-            double d = source.x() + (double) direction.getStepX() * 1.125D;
-            double e = Math.floor(source.y()) + (double) direction.getStepY();
-            double f = source.z() + (double) direction.getStepZ() * 1.125D;
-            BlockPos blockPos = source.getPos().relative(direction);
+            Direction direction = source.state().getValue(DispenserBlock.FACING);
+            Level level = source.level();
+            double d = source.pos().getX() + (double) direction.getStepX() * 1.125D;
+            double e = Math.floor(source.pos().getY()) + (double) direction.getStepY();
+            double f = source.pos().getZ() + (double) direction.getStepZ() * 1.125D;
+            BlockPos blockPos = source.pos().relative(direction);
             BlockState blockState = level.getBlockState(blockPos);
             RailShape railShape = blockState.getBlock() instanceof BaseRailBlock ? blockState.getValue(((BaseRailBlock) blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
             double k;
@@ -64,7 +64,7 @@ public class MinecartJukeboxItem extends Item {
         }
 
         protected void playSound(BlockSource blockSource) {
-            blockSource.getLevel().levelEvent(1000, blockSource.getPos(), 0);
+            blockSource.level().levelEvent(1000, blockSource.pos(), 0);
         }
     };
 

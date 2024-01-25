@@ -90,7 +90,7 @@ public class EtchingScreen extends AbstractContainerScreen<EtchingMenu> implemen
 
     @Override
     public void containerTick() {
-        this.url.tick();
+        //this.url.tick();
         if (this.urlTicks > 0) {
             this.urlTicks--;
             if (this.urlTicks <= 0 && !Objects.equals(this.oldUrl, this.url.getValue())) {
@@ -159,7 +159,7 @@ public class EtchingScreen extends AbstractContainerScreen<EtchingMenu> implemen
 
     @Override
     protected void renderBg(GuiGraphics gui, float f, int mouseX, int mouseY) {
-        this.renderBackground(gui);
+        //this.renderBackground(gui,mouseX,mouseY,f);
 
         //RenderSystem.setShaderTexture(0, TEXTURE);
         gui.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);

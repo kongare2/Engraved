@@ -118,12 +118,12 @@ public class EditMusicLabelScreen extends Screen {
 
     @Override
     public void tick() {
-        this.title.tick();
-        this.author.tick();
+       // this.title.tick();
+       // this.author.tick();
     }
 
     protected void renderBg(GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(gui);
+        //this.renderBackground(gui,mouseX,mouseY,partialTick);
         int leftPos = (this.width - this.imageWidth) / 2;
         int topPos = (this.height - this.imageHeight) / 2;
 
@@ -154,8 +154,8 @@ public class EditMusicLabelScreen extends Screen {
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
-        this.renderBg(gui, mouseX, mouseY, partialTick);
         super.render(gui, mouseX, mouseY, partialTick);
+        renderBg(gui,mouseX,mouseY,partialTick);
     }
 
     private void saveChanges() {

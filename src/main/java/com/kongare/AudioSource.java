@@ -30,7 +30,7 @@ public interface AudioSource {
     static Map<String, String> getDownloadHeaders() {
         Map<String, String> map = SoundDownloadSource.getDownloadHeaders();
         map.put("X-Minecraft-Username", Minecraft.getInstance().getUser().getName());
-        map.put("X-Minecraft-UUID", Minecraft.getInstance().getUser().getUuid());
+        map.put("X-Minecraft-UUID", Minecraft.getInstance().getUser().getProfileId().toString());
         return map;
     }
 

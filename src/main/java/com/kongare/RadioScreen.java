@@ -64,12 +64,12 @@ public class RadioScreen extends AbstractContainerScreen<RadioMenu> {
 
     @Override
     public void containerTick() {
-        this.url.tick();
+        //this.url.tick();
     }
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(gui);
+        //this.renderBackground(gui,mouseX,mouseY,partialTicks);
         super.render(gui, mouseX, mouseY, partialTicks);
     }
 
